@@ -6,18 +6,18 @@ import "core:strconv"
 import "core:strings"
 
 main :: proc() {
-	data, _ := os.read_entire_file("input.txt", context.allocator)
-
 	safe_reports: int
 
-	blk: for line in strings.split_lines(string(data)) {
-		string_levels := strings.split(line, " ")
+	data, _ := os.read_entire_file("input.txt", context.allocator)
 
-		levels := make([]int, len(string_levels))
-		levels_with_pd := make([]int, len(levels) - 1) // pd = Problem Dampener
+	blk: for line in strings.split_lines(string(data)) {
+		string_levels := strings.split(line, " ");defer delete(string_levels)
+
+		levels := make([]int, len(string_levels));defer delete(levels)
+
+		levels_with_pd := make([]int, len(levels) - 1);defer delete(levels_with_pd) // pd = Problem Dampener
 
 		for i in 0 ..< len(string_levels) do levels[i] = strconv.atoi(string_levels[i])
-
 
 		inner_blk: for i in 0 ..< len(levels) {
 
@@ -32,9 +32,14 @@ main :: proc() {
 			is_decreasing := true
 
 			for i in 0 ..< len(levels_with_pd) - 1 {
-				if levels_with_pd[i] > levels_with_pd[i + 1] do is_increasing = false
-				if levels_with_pd[i] < levels_with_pd[i + 1] do is_decreasing = false
-				if abs(levels_with_pd[i] - levels_with_pd[i + 1]) > 3 || levels_with_pd[i] - levels_with_pd[i + 1] == 0 do continue inner_blk
+				switch levels_with_pd[i] - levels_with_pd[i + 1] {
+				case -3 ..= -1:
+					is_increasing = false
+				case 1 ..= 3:
+					is_decreasing = false
+				case:
+					continue inner_blk
+				}
 			}
 
 			if is_increasing || is_decreasing {
