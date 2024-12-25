@@ -8,19 +8,16 @@ import "core:strings"
 main :: proc() {
 	safe_reports: int
 
-	data, _ := os.read_entire_file("input.txt", context.allocator)
+	data, _ := os.read_entire_file("../../input/day2.txt", context.allocator)
 
 	blk: for line in strings.split_lines(string(data)) {
 		string_levels := strings.split(line, " ");defer delete(string_levels)
-
 		levels := make([]int, len(string_levels));defer delete(levels)
-
 		levels_with_pd := make([]int, len(levels) - 1);defer delete(levels_with_pd) // pd = Problem Dampener
 
 		for i in 0 ..< len(string_levels) do levels[i] = strconv.atoi(string_levels[i])
 
 		inner_blk: for i in 0 ..< len(levels) {
-
 			levels_index := 0
 
 			for j in 0 ..< len(levels) do if j != i {

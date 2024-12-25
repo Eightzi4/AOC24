@@ -7,9 +7,9 @@ import "core:strconv"
 import "core:strings"
 
 main :: proc() {
-	total_distance: int
+	similarity_score: int
 
-	data, _ := os.read_entire_file("input.txt", context.allocator)
+	data, _ := os.read_entire_file("../../input/day1.txt", context.allocator)
 
 	first_array: [dynamic]int
 	second_array: [dynamic]int
@@ -25,8 +25,9 @@ main :: proc() {
 	slice.sort(second_array[:])
 
 	for i in 0 ..< len(first_array) {
-		total_distance += abs(first_array[i] - second_array[i])
+		first_array[i] *= slice.count(second_array[:], first_array[i])
+		similarity_score += first_array[i]
 	}
 
-	fmt.println(total_distance)
+	fmt.println(similarity_score)
 }

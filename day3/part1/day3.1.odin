@@ -8,7 +8,7 @@ import "core:strings"
 main :: proc() {
 	result := 0
 	
-	data, _ := os.read_entire_file("input.txt", context.allocator)
+	data, _ := os.read_entire_file("../../input/day3.txt", context.allocator)
 
 	sample := "mul("
 	sample_index := 0
@@ -17,6 +17,7 @@ main :: proc() {
 	for c, i in data {
 		if sample_index == len(sample) {
 			if saved_index == 0 do saved_index = i
+			
 			switch c {
 			case '0' ..= '9', ',':
 				continue

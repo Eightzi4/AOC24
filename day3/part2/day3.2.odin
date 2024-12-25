@@ -8,7 +8,7 @@ import "core:strings"
 main :: proc() {
 	result := 0
 
-	data, _ := os.read_entire_file("input.txt", context.allocator)
+	data, _ := os.read_entire_file("../../input/day3.txt", context.allocator)
 
 	samples := [?]string{"do()", "don't()", "mul("}
 	sample_indexes := [?]int{0, 0, 0}
@@ -18,7 +18,6 @@ main :: proc() {
 	for c, i in data {
 		for j in 0 ..< len(samples) {
 			if sample_indexes[j] == len(samples[j]) {
-
 				switch j {
 				case 0:
 					enabled = true
@@ -29,6 +28,7 @@ main :: proc() {
 						sample_indexes[j] = 0
 						continue
 					}
+					
 					if saved_index == 0 do saved_index = i
 
 					switch c {

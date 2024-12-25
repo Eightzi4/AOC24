@@ -8,11 +8,10 @@ import "core:strings"
 main :: proc() {
 	safe_reports: int
 
-	data, _ := os.read_entire_file("input.txt", context.allocator)
+	data, _ := os.read_entire_file("../../input/day2.txt", context.allocator)
 
 	blk: for line in strings.split_lines(string(data)) {
 		string_levels := strings.split(line, " ");defer delete(string_levels)
-
 		levels := make([]int, len(string_levels));defer delete(levels)
 
 		for i in 0 ..< len(string_levels) do levels[i] = strconv.atoi(string_levels[i])
