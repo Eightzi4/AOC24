@@ -1,10 +1,8 @@
 package main
 
 import "core:fmt"
-import "core:mem"
 import "core:os"
 import "core:strings"
-import "core:time"
 import "core:unicode/utf8"
 
 Vec2 :: [2]int
