@@ -45,12 +45,10 @@ take_step :: proc(position: Vec2, direction: Direction) -> Vec2 {
 
 main :: proc() {
 	distinct_positions := 1
-
 	data, _ := os.read_entire_file_from_filename("../../input/day6.txt")
-
 	lines := strings.split_lines(string(data))
-
 	chars: [dynamic][dynamic]rune
+
 	for line in lines {
 		line_chars: [dynamic]rune
 		for c in line do append(&line_chars, c)
@@ -59,14 +57,14 @@ main :: proc() {
 
 	width := len(chars[0])
 	height := len(chars)
-
 	facing_diretion := Direction.Up
-
 	position := Vec2{}
+
 	blk: for line, y in lines {
 		for c, x in line do if c == '^' {
 			position = Vec2{x, y}
 			chars[position.y][position.x] = 'X'
+
 			break blk
 		}
 	}
@@ -76,6 +74,7 @@ main :: proc() {
 
 		if chars[new_position.y][new_position.x] == '#' {
 			rotate_right(&facing_diretion)
+			
 			continue
 		}
 

@@ -9,26 +9,20 @@ import "core:strings"
 
 main :: proc() {
 	page_number_sum := 0
-
 	data, _ := os.read_entire_file_from_filename("../../input/day5.txt")
-
 	sections := strings.split(string(data), "\n\r")
-
 	rule_lines := strings.split(sections[0], "\n")
 	rules: [dynamic][2]int
+
 	for rule_line in rule_lines {
-		string_values := strings.split(rule_line, "|");defer delete(string_values)
+		string_values := strings.split(rule_line, "|")
 		append(&rules, [2]int{strconv.atoi(string_values[0]), strconv.atoi(string_values[1])})
 	}
 
 	updates: [dynamic][dynamic]int
-	defer {
-		for update in updates do delete(update)
-		delete(updates)
-	}
 
 	for update_line, i in strings.split(sections[1], "\n") {
-		update_values := strings.split(update_line, ",");defer delete(update_values)
+		update_values := strings.split(update_line, ",")
 		update: [dynamic]int
 
 		for value in update_values {
@@ -50,6 +44,7 @@ main :: proc() {
 							if rule.y == update[j] {
 								corrected = true
 								slice.swap(update[:], i, j)
+
 								continue inner_blk
 							}
 						}
@@ -58,6 +53,7 @@ main :: proc() {
 			}
 
 			if corrected do page_number_sum += update[update_values_count / 2]
+			
 			break
 		}
 

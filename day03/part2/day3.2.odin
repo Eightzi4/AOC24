@@ -7,9 +7,7 @@ import "core:strings"
 
 main :: proc() {
 	result := 0
-
 	data, _ := os.read_entire_file("../../input/day3.txt", context.allocator)
-
 	samples := [?]string{"do()", "don't()", "mul("}
 	sample_indexes := [?]int{0, 0, 0}
 	saved_index := 0
@@ -26,20 +24,20 @@ main :: proc() {
 				case 2:
 					if !enabled {
 						sample_indexes[j] = 0
+
 						continue
 					}
-					
+
 					if saved_index == 0 do saved_index = i
 
 					switch c {
 					case '0' ..= '9', ',':
 						continue
 					case ')':
-						string_values, _ := strings.split(
-							string(data[saved_index:i]),
-							",",
-						);defer delete(string_values)
+						string_values, _ := strings.split(string(data[saved_index:i]), ",")
+
 						result += strconv.atoi(string_values[0]) * strconv.atoi(string_values[1])
+
 						fallthrough
 					case:
 						saved_index = 0

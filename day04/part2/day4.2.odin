@@ -14,10 +14,8 @@ RANGE :: len(SEARCHED_WORD) / 2
 
 main :: proc() {
 	words_found := 0
-
 	data, _ := os.read_entire_file("../../input/day4.txt", context.allocator)
-
-	lines := strings.split_lines(string(data));defer delete(lines)
+	lines := strings.split_lines(string(data))
 	height := len(lines)
 	width := len(lines[0])
 	searched_word_clone := strings.clone(SEARCHED_WORD)

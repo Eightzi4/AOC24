@@ -7,15 +7,13 @@ import "core:strings"
 
 main :: proc() {
 	total_calibration_result := 0
-
 	data, _ := os.read_entire_file_from_filename("../../input/day7.txt")
 
 	for line, i in strings.split_lines(string(data)) {
 		sections := strings.split(line, ": ")
 		target_value := strconv.atoi(sections[0])
-
 		numbers: [dynamic]int
-		defer delete(numbers)
+
 		for v in strings.split(sections[1], " ") do append(&numbers, strconv.atoi(v))
 
 		total_calibration_result += try_operations(numbers[0], numbers[1:], target_value)
@@ -43,8 +41,10 @@ try_operations :: proc(current_result: int, remaining_numbers: []int, target: in
 			remaining_numbers[1:],
 			target,
 		)
+
 		if next_result == target {
 			result = next_result
+
 			break
 		}
 	}

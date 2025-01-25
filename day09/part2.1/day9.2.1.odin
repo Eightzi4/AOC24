@@ -2,23 +2,15 @@ package main
 
 import "core:fmt"
 import "core:os"
-import "core:time"
 
 File :: struct {
 	id, size: int,
 }
 
 main :: proc() {
-	stop_watch := time.Stopwatch{}
-	time.stopwatch_start(&stop_watch)
-	defer fmt.println("Code execution took: ", time.stopwatch_duration(stop_watch))
-
 	checksum := 0
-
 	data, _ := os.read_entire_file_from_filename("../../input/day9.txt")
-
 	files: [dynamic]File
-
 	id := 0
 	is_file := true
 
@@ -27,6 +19,7 @@ main :: proc() {
 
 		if is_file {
 			append(&files, File{id, file_size})
+			
 			id += 1
 		} else do append(&files, File{-1, file_size})
 

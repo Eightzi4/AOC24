@@ -6,11 +6,8 @@ import "core:os"
 // This turned out to be more than 10x slower than 2.1
 main :: proc() {
 	checksum := 0
-
 	data, _ := os.read_entire_file_from_filename("../../input/day9.txt")
-
 	disk: [dynamic]int
-
 	id := 0
 	is_file := true
 
